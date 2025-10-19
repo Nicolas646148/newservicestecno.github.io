@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NewServicesTec | Tecnología en buenas manos</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- AOS (animations on scroll) -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --brand:#00c3ff;
+      --dark:#0f2027;
+      --muted-bg:#e9f0f4;
+    }
+
+    html{ scroll-behavior:smooth; }
+
+    body{
+      font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
+      background:#f4f8fb;
+      color:#0b1a24;
+      margin:0;
+    }
+
+    /* NAVBAR */
+        .navbar{ background:var(--dark); padding:10px 0; }
+    .navbar-brand {
+      color: var(--brand) !important;
+      font-weight: 700;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase; }
+
+      .navbar-brand img {
+      height: 60px;
+      width: auto;
+      border-radius: 6px;
+      transition: transform 0.3s ease;
+    }
+    .navbar-brand img:hover {
+      transform: scale(1.05);
+    }
+    .nav-link{ color:#fff !important; transition: color .25s, transform .25s; }
+    .nav-link:hover{ color:var(--brand) !important; transform:translateY(-2px); }
+
+    /* LANGUAGE SELECTOR - visible */
+    .lang-wrapper{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-left:12px;
+    }
+    .lang-btn{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      background:#fff;
+      color:#0f2027;
+      border:1px solid rgba(0,0,0,0.08);
+      padding:6px 8px;
+      border-radius:8px;
+      cursor:pointer;
+      box-shadow:0 2px 8px rgba(0,0,0,0.08);
+      transition:transform .15s;
+      font-weight:600;
+      font-size:0.9rem;
+    }
+    .lang-btn img{ width:26px; height:18px; object-fit:cover; border-radius:3px; }
+    .lang-btn:hover{ transform:scale(1.03); }
+
+    /* CARRUSEL styling */
+    .carousel-item img{ height:520px; object-fit:cover; filter:brightness(0.9); }
+    .carousel-caption{ background:rgba(0,0,0,0.35); padding:20px; border-radius:8px; }
+    .carousel-caption h2{ color:#fff; font-weight:700; }
+
+    /* SECTIONS */
+    section{ padding:64px 20px; }
+    section h2{ text-align:center; color:var(--brand); margin-bottom:24px; font-weight:700; text-transform:uppercase; }
+    .lead-sub{ font-size:1.05rem; color:#22313a; }
+
+    .service-card{ background:#fff; border-radius:10px; padding:28px; box-shadow:0 6px 18px rgba(15,32,39,0.06); transition:transform .25s; }
+    .service-card:hover{ transform:translateY(-8px); box-shadow:0 12px 30px rgba(15,32,39,0.09); }
+
+    .tienda-img{ max-width:900px; margin:20px auto; display:block; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.08); }
+
+    .testimonial{ background:#fff; padding:20px; border-radius:10px; box-shadow:0 6px 18px rgba(15,32,39,0.05); }
+    .testimonial p{ font-style:italic; color:#344a54; }
+
+    /* BACK TO TOP */
+    #backToTop{
+      position:fixed; right:22px; bottom:28px; z-index:1200;
+      width:52px; height:52px; border-radius:50%;
+      background:var(--brand); color:#fff; border:none;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 8px 20px rgba(0,0,0,0.18); cursor:pointer;
+      transform:translateY(0); transition:transform .2s, opacity .2s;
+      opacity:0; pointer-events:none;
+    }
+    #backToTop.show{ opacity:1; pointer-events:auto; transform:translateY(-6px); }
+    #backToTop:hover{ transform:scale(1.06); }
+
+    footer{ background:var(--dark); color:#fff; padding:36px 0; text-align:center; }
+    footer a{ color:var(--brand); text-decoration:none; }
+    .muted{ color:#8fa3ad; }
+
+    /* Responsive spacing header-language */
+    @media(max-width:767px){
+      .lang-wrapper{ display:none; } /* hide flags on tiny screens to save space (optional) */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <!-- NAVBAR con logo -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="img/logo.png" alt="Logo NewServicesTec">
+        NewServicesTec
+      </a>
+
+      <!-- language buttons visible -->
+      <div class="lang-wrapper ms-3 me-2" aria-hidden="false">
+        <button class="lang-btn" id="btn-es" aria-label="Español"><img src="img/flag-ecuador.png" alt="EC"> <span id="lbl-es">Español</span></button>
+        <button class="lang-btn" id="btn-en" aria-label="English"><img src="img/flag-usa.png" alt="US"> <span id="lbl-en">English</span></button>
+      </div>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#inicio" data-es="Inicio" data-en="Home">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#servicios" data-es="Servicios" data-en="Services">Servicios</a></li>
+          <li class="nav-item"><a class="nav-link" href="tienda.html" data-es="Tienda" data-en="Shop">Tienda</a></li>
+          <li class="nav-item"><a class="nav-link" href="#quienes" data-es="Quiénes Somos" data-en="About Us">Quiénes Somos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CARRUSEL -->
+  <div id="homeCarousel" class="carousel slide" data-bs-ride="carousel" data-aos="fade-up">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="img/banner1.jpg" class="d-block w-100" alt="banner 1">
+        <div class="carousel-caption d-none d-md-block">
+          <h2 data-es="Servicio Técnico Rápido" data-en="Fast Technical Service">Servicio Técnico Rápido</h2>
+          <p data-es="Reparaciones y mantenimiento express" data-en="Repairs and express maintenance">Reparaciones y mantenimiento express</p>
+          <a class="btn btn-custom" href="#servicios"><i class="fas fa-tools me-2"></i><span data-es="Conocer servicios" data-en="View services">Conocer servicios</span></a>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="img/banner2.jpg" class="d-block w-100" alt="banner 2">
+        <div class="carousel-caption d-none d-md-block">
+          <h2 data-es="Componentes y Accesorios" data-en="Components & Accessories">Componentes y Accesorios</h2>
+          <p data-es="Marcas originales y garantía" data-en="Original brands and warranty">Marcas originales y garantía</p>
+          <a class="btn btn-custom" href="#tienda"><i class="fas fa-shopping-cart me-2"></i><span data-es="Ir a la tienda" data-en="Go to shop">Ir a la tienda</span></a>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="img/banner3.jpg" class="d-block w-100" alt="banner 3">
+        <div class="carousel-caption d-none d-md-block">
+          <h2 data-es="Asesoría Profesional" data-en="Professional Consulting">Asesoría Profesional</h2>
+          <p data-es="Configuramos y optimizamos tu equipo" data-en="We configure and optimize your device">Configuramos y optimizamos tu equipo</p>
+          <a class="btn btn-custom" href="#contacto"><i class="fas fa-phone me-2"></i><span data-es="Contáctanos" data-en="Contact us">Contáctanos</span></a>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+
+  <!-- INICIO -->
+  <section id="inicio" data-aos="fade-up">
+    <div class="container text-center">
+      <h2 data-es="Bienvenido a NewServicesTec" data-en="Welcome to NewServicesTec">Bienvenido a NewServicesTec</h2>
+      <p class="lead-sub" data-es="Tu aliado en soluciones tecnológicas." data-en="Your ally in technological solutions.">Tu aliado en soluciones tecnológicas.</p>
+      <p data-es="Ofrecemos servicio técnico especializado en laptops y computadoras de escritorio, así como la venta de dispositivos y accesorios tecnológicos de las mejores marcas." data-en="We offer specialized technical service for laptops and desktop computers, as well as sales of technological devices and accessories from top brands.">
+        Ofrecemos servicio técnico especializado en laptops y computadoras de escritorio, así como la venta de dispositivos y accesorios tecnológicos de las mejores marcas.
+      </p>
+      <div class="mt-4">
+        <i class="fas fa-check-circle text-success me-2"></i><span data-es="Reparaciones rápidas y garantizadas" data-en="Fast, guaranteed repairs">Reparaciones rápidas y garantizadas</span><br>
+        <i class="fas fa-award text-warning me-2"></i><span data-es="Productos 100% originales y de calidad" data-en="100% original quality products">Productos 100% originales y de calidad</span><br>
+        <i class="fas fa-headset text-primary me-2"></i><span data-es="Atención personalizada y soporte técnico profesional" data-en="Personalized attention and professional technical support">Atención personalizada y soporte técnico profesional</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="bg-light">
+    <div class="container">
+      <h2 data-es="Servicios" data-en="Services">Servicios</h2>
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="50">
+          <div class="service-card text-center">
+            <i class="fas fa-wrench fa-3x text-primary mb-3"></i>
+            <h5 data-es="Servicio Técnico Especializado" data-en="Specialized Technical Service">Servicio Técnico Especializado</h5>
+            <ul class="text-start mt-3">
+              <li><i class="fas fa-check me-2 text-success"></i>Diagnóstico y reparación de laptops y PCs</li>
+              <li><i class="fas fa-check me-2 text-success"></i>Reinstalación y optimización de sistemas</li>
+              <li><i class="fas fa-check me-2 text-success"></i>Limpieza interna y mantenimiento preventivo</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="150">
+          <div class="service-card text-center">
+            <i class="fas fa-laptop fa-3x text-primary mb-3"></i>
+            <h5 data-es="Asesoría y Soporte" data-en="Consulting & Support">Asesoría y Soporte</h5>
+            <ul class="text-start mt-3">
+              <li><i class="fas fa-check me-2 text-success"></i>Configuración de equipos y redes</li>
+              <li><i class="fas fa-check me-2 text-success"></i>Actualización de hardware y software</li>
+              <li><i class="fas fa-check me-2 text-success"></i>Instalación de periféricos</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="250">
+          <div class="service-card text-center">
+            <i class="fas fa-tools fa-3x text-primary mb-3"></i>
+            <h5 data-es="Ensamblaje Personalizado" data-en="Custom Builds">Ensamblaje Personalizado</h5>
+            <p>Ensamblaje a medida, pruebas y calibración para gaming y trabajo profesional.</p>
+            <a class="btn btn-outline-primary mt-2" href="#contacto"><i class="fas fa-paper-plane me-2"></i><span data-es="Solicitar cotización" data-en="Request quote">Solicitar cotización</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIENDA -->
+  <section id="tienda" data-aos="fade-up">
+    <div class="container text-center">
+      <h2 data-es="Tienda Tecnológica" data-en="Tech Shop">Tienda Tecnológica</h2>
+      <p data-es="Encuentra todo lo que necesitas: periféricos, accesorios, componentes y más." data-en="Find everything you need: peripherals, accessories, components and more.">
+        Encuentra todo lo que necesitas: periféricos, accesorios, componentes y más.
+      </p>
+      <img src="img/tienda.jpg" alt="Tienda" class="tienda-img img-fluid" data-aos="zoom-in" data-aos-delay="100">
+    </div>
+  </section>
+
+  <!-- QUIENES -->
+  <section id="quienes" class="bg-light" data-aos="fade-up">
+    <div class="container text-center">
+      <h2 data-es="Quiénes Somos" data-en="About Us">Quiénes Somos</h2>
+      <img src="img/quienes.jpg" alt="Equipo" class="img-fluid rounded mb-3 shadow-sm" style="max-width:600px;" data-aos="zoom-in">
+      <p data-es="NewServicesTec nació con el objetivo de ofrecer soluciones técnicas confiables y productos de calidad." data-en="NewServicesTec was born with the mission of providing reliable technical solutions and quality products.">
+        NewServicesTec nació con el objetivo de ofrecer soluciones técnicas confiables y productos de calidad.
+      </p>
+      <blockquote class="muted">“La tecnología no debería ser un problema, sino una herramienta. En NewServicesTec, la hacemos funcionar para ti.”</blockquote>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section id="testimonios" data-aos="fade-up">
+    <div class="container">
+      <h2 data-es="Testimonios" data-en="Testimonials">Testimonios</h2>
+      <div class="row g-4">
+        <div class="col-md-6" data-aos="fade-right" data-aos-delay="80">
+          <div class="testimonial">
+            <p>“Llevé mi laptop porque no encendía y en menos de 24 horas estaba como nueva. Excelente atención.”</p>
+            <h6 class="mb-0">— Carlos M.</h6>
+          </div>
+        </div>
+        <div class="col-md-6" data-aos="fade-left" data-aos-delay="120">
+          <div class="testimonial">
+            <p>“Compré unos audífonos y un teclado gamer, buena calidad y precios accesibles.”</p>
+            <h6 class="mb-0">— María V.</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="bg-light" data-aos="fade-up">
+    <div class="container text-center">
+      <h2 data-es="Contacto" data-en="Contact">Contacto</h2>
+      <p><i class="fas fa-phone me-2"></i><strong>Tel/WhatsApp:</strong> +593 999 439 777</p>
+      <p><i class="fas fa-envelope me-2"></i><strong>Email:</strong> newservicestec@gmail.com</p>
+      <p><i class="fas fa-map-marker-alt me-2"></i>Cuenca, Ecuador</p>
+      <p><i class="fas fa-clock me-2"></i>Lunes a Sábado, 9:00 a.m. - 7:00 p.m.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p class="mb-1">© 2025 NewServicesTec — Tecnología en buenas manos.</p>
+      <p class="muted mb-0">Síguenos:
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f ms-2"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram ms-2"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok ms-2"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube ms-2"></i></a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button id="backToTop" aria-label="Volver arriba"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- SCRIPTS: Bootstrap, AOS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+    // Init AOS
+    AOS.init({ duration: 800, once: true, offset: 100 });
+
+    // BACK TO TOP button behavior
+    const backBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 380) backBtn.classList.add('show');
+      else backBtn.classList.remove('show');
+    });
+    backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // LANGUAGE handling with persistence
+    const texts = document.querySelectorAll('[data-es]');
+    const btnEs = document.getElementById('btn-es');
+    const btnEn = document.getElementById('btn-en');
+
+    function setLanguage(lang){
+      texts.forEach(el => {
+        el.textContent = el.getAttribute(lang === 'es' ? 'data-es' : 'data-en');
+      });
+      // save
+      try { localStorage.setItem('ns_lang', lang); } catch(e){}
+    }
+
+    // restore language on load
+    document.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('ns_lang') || 'es';
+      setLanguage(saved);
+    });
+
+    btnEs.addEventListener('click', () => setLanguage('es'));
+    btnEn.addEventListener('click', () => setLanguage('en'));
+
+    // Make carousel captions animate on slide (small effect)
+    const carousel = document.getElementById('homeCarousel');
+    if (carousel){
+      carousel.addEventListener('slid.bs.carousel', e => {
+        // refresh AOS so captions animate when slide changes
+        AOS.refreshHard();
+      });
+    }
+
+  </script>
+</body>
+</html>

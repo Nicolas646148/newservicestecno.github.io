@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Completar Compra - NewServicesTec</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      margin: 0;
+      padding: 0;
+      animation: fadeIn 1.2s ease;
+    }
+    header {
+      background: rgba(0,0,0,0.8);
+      padding: 20px;
+      text-align: center;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      border-bottom: 2px solid #00c3ff;
+    }
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    }
+    h2 {
+      text-align: center;
+      color: #00c3ff;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      margin: 10px 0;
+      padding: 10px 15px;
+      transition: transform 0.3s ease;
+    }
+    .cart-item:hover {
+      transform: scale(1.02);
+    }
+    .cart-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-right: 15px;
+    }
+    .cart-details {
+      flex: 1;
+      text-align: left;
+    }
+    .cart-price {
+      font-weight: bold;
+      color: #00e1ff;
+    }
+    .remove-btn {
+      background: #ff5252;
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .remove-btn:hover {
+      background: #e63946;
+    }
+    .total {
+      text-align: right;
+      font-size: 1.3rem;
+      margin-top: 20px;
+      color: #00e1ff;
+    }
+    .checkout-btn {
+      display: block;
+      width: 100%;
+      background: #00c3ff;
+      color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+      margin-top: 30px;
+      transition: background 0.3s;
+    }
+    .checkout-btn:hover {
+      background: #0096c7;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    🛍️ Carrito de Compras - NewServicesTec
+  </header>
+  <main>
+    <h2>Productos en tu carrito</h2>
+    <div id="cartContainer"></div>
+    <div class="total" id="totalPrice">Total: $0.00</div>
+    <button class="checkout-btn" id="completePurchase">Finalizar Compra</button>
+  </main>
+
+  <script>
+    // Cargar productos del carrito
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const container = document.getElementById('cartContainer');
+    const totalDisplay = document.getElementById('totalPrice');
+
+    function renderCart() {
+      container.innerHTML = '';
+      let total = 0;
+      carrito.forEach((item, i) => {
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+          <img src="${item.imagen}" alt="${item.nombre}">
+          <div class="cart-details">
+            <strong>${item.nombre}</strong><br>
+            <span class="cart-price">${item.precio}</span>
+          </div>
+          <button class="remove-btn"><i class="fas fa-trash"></i></button>
+        `;
+        div.querySelector('.remove-btn').addEventListener('click', () => {
+          carrito.splice(i, 1);
+          localStorage.setItem('carrito', JSON.stringify(carrito));
+          renderCart();
+        });
+        container.appendChild(div);
+        total += parseFloat(item.precio.replace('$', '')) || 0;
+      });
+      totalDisplay.textContent = `Total: $${total.toFixed(2)}`;
+    }
+
+    renderCart();
+
+    document.getElementById('completePurchase').addEventListener('click', () => {
+      if (carrito.length === 0) {
+        alert('Tu carrito está vacío 🛒');
+        return;
+      }
+      alert('✅ Compra completada. ¡Gracias por confiar en NewServicesTec!');
+      localStorage.removeItem('carrito');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

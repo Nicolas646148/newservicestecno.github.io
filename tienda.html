@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tienda | NewServicesTec</title>
+  <link rel="icon" href="img/logo.png">
+
+  <!-- Fuentes y librerías -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* ======= ENCABEZADO ======= */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 30px;
+      background-color: rgba(0, 0, 0, 0.85);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      animation: fadeInDown 1s;
+    }
+    header img {
+      height: 60px;
+      margin-right: 10px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #00c3ff;
+      letter-spacing: 1px;
+    }
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      color: #00c3ff;
+    }
+    .lang-switch {
+      background: transparent;
+      color: #fff;
+      border: 1px solid #00c3ff;
+      padding: 5px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: 0.3s;
+    }
+    .lang-switch:hover {
+      background-color: #00c3ff22;
+    }
+    .lang-switch img {
+      width: 20px;
+      height: 14px;
+    }
+
+    /* ======= BUSCADOR ======= */
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 30px;
+    }
+    .search-bar input {
+      width: 60%;
+      padding: 12px;
+      border-radius: 8px 0 0 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+    .search-bar button {
+      background: #00c3ff;
+      border: none;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .search-bar button:hover {
+      background: #0099cc;
+    }
+
+    /* ======= CATÁLOGO ======= */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      padding: 20px 40px;
+    }
+    .product {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+      transition: transform 0.4s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .product:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+    .product img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .product h3 {
+      margin: 15px 0 5px;
+      color: #00c3ff;
+    }
+    .product p {
+      margin: 0;
+      color: #ddd;
+    }
+    .price {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #fff;
+      margin: 10px 0;
+    }
+    .buy-btn {
+      background: #00c3ff;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    .buy-btn:hover {
+      background: #0099cc;
+    }
+
+    /* ======= PIE DE PÁGINA ======= */
+    footer {
+      background: #0d1a24;
+      text-align: center;
+      padding: 30px 20px;
+      color: #ccc;
+      margin-top: 40px;
+    }
+    footer p {
+      margin: 5px 0;
+    }
+    .socials a {
+      color: #00c3ff;
+      margin: 0 8px;
+      font-size: 1.2rem;
+      transition: 0.3s;
+    }
+    .socials a:hover {
+      color: #fff;
+    }
+
+    /* ======= BOTÓN VOLVER ARRIBA ======= */
+    #backToTop {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #00c3ff;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 14px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      display: none;
+      transition: 0.3s;
+      z-index: 100;
+    }
+    #backToTop:hover {
+      background: #0099cc;
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeInDown {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO -->
+  <header>
+    <div class="logo">
+      <img src="img/logo.png" alt="Logo"> NewServicesTec
+    </div>
+    <nav>
+      <a href="index.html" data-es="Inicio" data-en="Home"><i class="fas fa-home"></i> Inicio</a>
+      <a href="#" data-es="Servicios" data-en="Services"><i class="fas fa-laptop"></i> Servicios</a>
+      <a href="#" data-es="Tienda" data-en="Shop"><i class="fas fa-store"></i> Tienda</a>
+      <a href="#" data-es="Contacto" data-en="Contact"><i class="fas fa-envelope"></i> Contacto</a>
+    </nav>
+    <button class="lang-switch" id="lang-switch">
+      <img id="flag-icon" src="https://flagcdn.com/w20/ec.png" alt="EC"> <span>ES</span>
+    </button>
+  </header>
+
+  <!-- BUSCADOR -->
+  <div class="search-bar animate__animated animate__fadeInUp">
+    <input type="text" id="search" placeholder="Buscar productos...">
+    <button id="searchBtn"><i class="fas fa-search"></i></button>
+  </div>
+
+  <!-- CATÁLOGO -->
+  <section class="product-grid" id="productGrid">
+    <div class="product animate__animated animate__fadeInUp" data-name="laptop" data-desc="rendimiento">
+      <img src="img/producto1.jpg" alt="Laptop">
+      <h3 data-es="Laptop Profesional" data-en="Professional Laptop">Laptop Profesional</h3>
+      <p data-es="Rendimiento superior para trabajo o estudio." data-en="Superior performance for work or study."></p>
+      <div class="price">$799</div>
+      <button class="buy-btn"><i class="fas fa-shopping-cart"></i> Comprar</button>
+    </div>
+    <div class="product animate__animated animate__fadeInUp" data-name="mouse gamer" data-desc="rgb">
+      <img src="img/producto2.jpg" alt="Mouse Gamer">
+      <h3 data-es="Mouse Gamer RGB" data-en="RGB Gaming Mouse">Mouse Gamer RGB</h3>
+      <p data-es="Precisión y diseño ergonómico." data-en="Precision and ergonomic design."></p>
+      <div class="price">$25</div>
+      <button class="buy-btn"><i class="fas fa-shopping-cart"></i> Comprar</button>
+    </div>
+    <div class="product animate__animated animate__fadeInUp" data-name="teclado mecanico" data-desc="retroiluminado">
+      <img src="img/producto3.jpg" alt="Teclado Mecánico">
+      <h3 data-es="Teclado Mecánico RGB" data-en="Mechanical Keyboard RGB">Teclado Mecánico RGB</h3>
+      <p data-es="Retroiluminado, silencioso y duradero." data-en="Backlit, silent and durable."></p>
+      <div class="price">$49</div>
+      <button class="buy-btn"><i class="fas fa-shopping-cart"></i> Comprar</button>
+    </div>
+    <!-- PRODUCTO 4 -->
+<div class="product animate__animated animate__fadeInUp" data-name="pantalla led" data-desc="monitor display">
+  <img src="img/producto4.jpg" alt="Pantalla LED">
+  <h3 data-es="Pantalla LED 24''" data-en="24'' LED Monitor">Pantalla LED 24''</h3>
+  <p data-es="Resolución Full HD con colores vibrantes." data-en="Full HD resolution with vibrant colors."></p>
+  <div class="price">$139</div>
+  <button class="buy-btn"><i class="fas fa-shopping-cart"></i> <span data-es="Comprar" data-en="Buy">Comprar</span></button>
+</div>
+
+<!-- PRODUCTO 5 -->
+<div class="product animate__animated animate__fadeInUp" data-name="audifonos" data-desc="sonido bluetooth">
+  <img src="img/producto5.jpg" alt="Audífonos">
+  <h3 data-es="Audífonos Inalámbricos" data-en="Wireless Headphones">Audífonos Inalámbricos</h3>
+  <p data-es="Sonido potente y conexión Bluetooth estable." data-en="Powerful sound and stable Bluetooth connection."></p>
+  <div class="price">$59</div>
+  <button class="buy-btn"><i class="fas fa-shopping-cart"></i> <span data-es="Comprar" data-en="Buy">Comprar</span></button>
+</div>
+
+<!-- PRODUCTO 6 -->
+<div class="product animate__animated animate__fadeInUp" data-name="disco duro ssd" data-desc="almacenamiento rapido">
+  <img src="img/producto6.jpg" alt="Disco Duro SSD">
+  <h3 data-es="Disco Duro SSD 480GB" data-en="480GB SSD Drive">Disco Duro SSD 480GB</h3>
+  <p data-es="Velocidad y rendimiento mejorado para tu PC." data-en="High speed and improved performance for your PC."></p>
+  <div class="price">$75</div>
+  <button class="buy-btn"><i class="fas fa-shopping-cart"></i> <span data-es="Comprar" data-en="Buy">Comprar</span></button>
+</div>
+
+<!-- PRODUCTO 7 -->
+<div class="product animate__animated animate__fadeInUp" data-name="memoria ram" data-desc="rendimiento gaming">
+  <img src="img/producto7.jpg" alt="Memoria RAM">
+  <h3 data-es="Memoria RAM 16GB DDR4" data-en="16GB DDR4 RAM">Memoria RAM 16GB DDR4</h3>
+  <p data-es="Aumenta el rendimiento de tu equipo." data-en="Boost your computer performance."></p>
+  <div class="price">$89</div>
+  <button class="buy-btn"><i class="fas fa-shopping-cart"></i> <span data-es="Comprar" data-en="Buy">Comprar</span></button>
+</div>
+
+<!-- PRODUCTO 8 -->
+<div class="product animate__animated animate__fadeInUp" data-name="fuente de poder" data-desc="pc gaming energia">
+  <img src="img/producto8.jpg" alt="Fuente de Poder">
+  <h3 data-es="Fuente de Poder 600W" data-en="Power Supply 600W">Fuente de Poder 600W</h3>
+  <p data-es="Energía estable y segura para tu PC." data-en="Stable and safe power for your PC."></p>
+  <div class="price">$65</div>
+  <button class="buy-btn"><i class="fas fa-shopping-cart"></i> <span data-es="Comprar" data-en="Buy">Comprar</span></button>
+</div>
+
+<!-- PRODUCTO 9 -->
+<div class="product animate__animated animate__fadeInUp" data-name="camara web" data-desc="video full hd">
+  <img src="img/producto9.jpg" alt="Cámara Web">
+  <h3 data-es="Cámara Web Full HD" data-en="Full HD Webcam">Cámara Web Full HD</h3>
+  <p data-es="Ideal para videollamadas y streaming." data-en="Perfect for video calls and streaming."></p>
+  <div class="price">$45</div>
+  <button class="buy-btn"><i class="fas fa-shopping-cart"></i> <span data-es="Comprar" data-en="Buy">Comprar</span></button>
+</div>
+
+  </section>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <p>📍 Cuenca, Ecuador</p>
+    <p><i class="fas fa-envelope"></i> contacto@newservicestec.com | <i class="fas fa-phone"></i> +593 99 123 4567</p>
+    <div class="socials">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-tiktok"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+    <p>© 2025 NewServicesTec — Tecnología en buenas manos.</p>
+  </footer>
+
+  <!-- BOTÓN VOLVER ARRIBA -->
+  <button id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    // ===== Botón volver arriba =====
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.style.display = window.scrollY > 400 ? 'block' : 'none';
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ===== Cambio de idioma =====
+    const langSwitch = document.getElementById('lang-switch');
+    const flag = document.getElementById('flag-icon');
+    const langText = langSwitch.querySelector('span');
+    let currentLang = 'es';
+    langSwitch.addEventListener('click', () => {
+      currentLang = currentLang === 'es' ? 'en' : 'es';
+      flag.src = currentLang === 'es'
+        ? 'https://flagcdn.com/w20/ec.png'
+        : 'https://flagcdn.com/w20/us.png';
+      langText.textContent = currentLang.toUpperCase();
+      document.querySelectorAll('[data-es]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${currentLang}`);
+      });
+    });
+
+    // ===== Buscador =====
+    const searchInput = document.getElementById('search');
+    const searchBtn = document.getElementById('searchBtn');
+    const products = document.querySelectorAll('.product');
+
+    function searchProducts() {
+      const term = searchInput.value.toLowerCase();
+      products.forEach(p => {
+        const name = p.dataset.name.toLowerCase();
+        const desc = p.dataset.desc.toLowerCase();
+        p.style.display = name.includes(term) || desc.includes(term) ? 'block' : 'none';
+      });
+    }
+    searchInput.addEventListener('input', searchProducts);
+    searchBtn.addEventListener('click', searchProducts);
+  </script>
+<script>
+  // --- CARRITO DE COMPRAS ---
+  const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+  document.querySelectorAll('.buy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const producto = btn.closest('.product'); // ✅ corregido
+      if (!producto) return;
+
+      const nombre = producto.querySelector('h3').textContent;
+      const precio = producto.querySelector('.price').textContent;
+      const imagen = producto.querySelector('img').src;
+
+      carrito.push({ nombre, precio, imagen });
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+
+      actualizarCarrito();
+      alert(`${nombre} se agregó al carrito 🛒`);
+    });
+  });
+
+  // --- MOSTRAR BOTÓN COMPLETAR COMPRA ---
+  const botonCompra = document.createElement('a');
+  botonCompra.textContent = '🛍️ Completar Compra';
+  botonCompra.href = 'checkout.html';
+  botonCompra.className = 'complete-btn';
+  document.body.appendChild(botonCompra);
+
+  // --- CONTADOR DE PRODUCTOS ---
+  const contador = document.createElement('div');
+  contador.className = 'cart-counter';
+  document.body.appendChild(contador);
+
+  function actualizarCarrito() {
+    contador.textContent = carrito.length;
+  }
+  actualizarCarrito();
+
+  // --- ESTILOS DEL BOTÓN Y CONTADOR ---
+  const estilo = document.createElement('style');
+  estilo.textContent = `
+    .complete-btn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #00c3ff;
+      color: #fff;
+      font-weight: bold;
+      padding: 15px 25px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, background 0.3s;
+      animation: fadeIn 1s ease-in-out;
+      z-index: 1000;
+    }
+    .complete-btn:hover {
+      background: #0096c7;
+      transform: scale(1.05);
+    }
+    .cart-counter {
+      position: fixed;
+      bottom: 90px;
+      right: 50px;
+      background: #ff3b3b;
+      color: #fff;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      animation: fadeIn 0.8s ease;
+      z-index: 1000;
+    }
+  `;
+  document.head.appendChild(estilo);
+</script>
+</body>
+</html>
